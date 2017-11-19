@@ -1,16 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using Prime31.TransitionKit;
 using UnityEngine.SceneManagement;
 
 public class Root_Splash : MonoBehaviour
 {
+    public TMP_Text DeveloperLabel = null;
+    public TMP_Text PresentsLabel = null;
+    public TMP_Text TitleLabel = null;
+
     private IEnumerator Start()
     {
-        SceneManager.LoadSceneAsync(k.Scenes.SCENE_HARNESS, LoadSceneMode.Additive);
+        DeveloperLabel.alpha = 0f;
+        PresentsLabel.alpha = 0f;
+        TitleLabel.alpha = 0f;
 
-        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(k.Scenes.SCENE_HARNESS, LoadSceneMode.Additive);
+        Go.to(DeveloperLabel, 1f, new GoTweenConfig().floatProp("alpha", 1f)).play();
+
+        yield return new WaitForSeconds(2f);
+        Go.to(PresentsLabel, 1f, new GoTweenConfig().floatProp("alpha", 0.5f)).play();
+
+        yield return new WaitForSeconds(1f);
+        Go.to(TitleLabel, 1f, new GoTweenConfig().floatProp("alpha", 1f)).play();
+
+        yield return new WaitForSeconds(4f);
 
         TransitionKit.instance.transitionWithDelegate(new TriangleSlicesTransition()
         {

@@ -97,7 +97,9 @@ namespace k
 		public const string TMP_SETTINGS = "TMP Settings";
 		public const string ANTON_SDF = "Fonts & Materials/Anton SDF";
 		public const string BANGERS_SDF = "Fonts & Materials/Bangers SDF";
+		public const string ETHNOCENTRIC_SDF = "Fonts & Materials/Ethnocentric SDF";
 		public const string LIBERATION_SANS_SDF = "Fonts & Materials/LiberationSans SDF";
+		public const string NASALIZATION_SDF = "Fonts & Materials/Nasalization SDF";
 		public const string TMP_BITMAP_MOBILE = "Shaders/TMP_Bitmap-Mobile";
 		public const string TMP_BITMAP = "Shaders/TMP_Bitmap";
 		public const string TMP_SDF_OVERLAY = "Shaders/TMP_SDF Overlay";
