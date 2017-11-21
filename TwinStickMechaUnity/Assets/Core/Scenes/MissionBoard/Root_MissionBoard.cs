@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Root_MissionBoard : MonoBehaviour
+public class Root_MissionBoard : ContextSceneRoot
 {
-
-    // Use this for initialization
-    void Start()
+    protected override void OnRegionEnter()
     {
-
     }
-
-    // Update is called once per frame
-    void Update()
+    protected override void OnRegionExit()
     {
-
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Root_Barracks : ContextSceneRoot
+public class Root_Junkyard : ContextSceneRoot
 {
     protected override void OnRegionEnter()
     {

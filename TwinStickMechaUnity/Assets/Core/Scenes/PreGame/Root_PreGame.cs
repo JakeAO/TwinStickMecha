@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Root_PreGame : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class Root_PreGame : ContextSceneRoot
+{
+    protected override void OnRegionEnter()
+    {
+    }
+    protected override void OnRegionExit()
+    {
+    }
 }

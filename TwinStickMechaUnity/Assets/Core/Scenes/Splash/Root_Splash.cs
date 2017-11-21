@@ -19,16 +19,21 @@ public class Root_Splash : MonoBehaviour
         TitleLabel.alpha = 0f;
 
         SceneManager.LoadScene(k.Scenes.SCENE_HARNESS, LoadSceneMode.Additive);
-        Go.to(DeveloperLabel, 1f, new GoTweenConfig().floatProp("alpha", 1f)).play();
-
-        yield return new WaitForSeconds(2f);
-        Go.to(PresentsLabel, 1f, new GoTweenConfig().floatProp("alpha", 0.5f)).play();
+        Go.to(DeveloperLabel, 0.5f, new GoTweenConfig().floatProp("alpha", 1f)).play();
 
         yield return new WaitForSeconds(1f);
-        Go.to(TitleLabel, 1f, new GoTweenConfig().floatProp("alpha", 1f)).play();
+        Go.to(PresentsLabel, 0.25f, new GoTweenConfig().floatProp("alpha", 1f)).play();
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(0.5f);
+        Go.to(TitleLabel, 0.5f, new GoTweenConfig().floatProp("alpha", 1f)).play();
 
+        yield return new WaitForSeconds(2f);
+
+        Transition_MainMenu();
+    }
+
+    private void Transition_MainMenu()
+    {
         TransitionKit.instance.transitionWithDelegate(new TriangleSlicesTransition()
         {
             duration = 2f,
