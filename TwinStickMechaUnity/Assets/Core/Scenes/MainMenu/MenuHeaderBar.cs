@@ -27,33 +27,51 @@ public class MenuHeaderBar : MonoBehaviour
 
     private void Start()
     {
-        bool scrapUnlocked = false;
-        bool gooUnlocked = false;
+        WalletData.onWalletUpdated += OnWalletUpdated;
+
+        OnWalletUpdated();
+
+        SaveData saveData = Root_Harness.Instance.SaveData;
+
+        float energyPerc = saveData.Energy / (float)saveData.MaxEnergy;
 
         StatusBarRoot.SetActive(true);
         PilotFieldRoot.SetActive(true);
-        PilotFieldLabel.SetText("1");
+        PilotFieldLabel.SetText(saveData.PilotSlots.ToString());
         MechaFieldRoot.SetActive(true);
-        MechaFieldLabel.SetText("1");
+        MechaFieldLabel.SetText(saveData.MechSlots.ToString());
         EnergyFieldRoot.SetActive(true);
-        EnergyFieldActualImage.fillAmount = 1f;
-        EnergyFieldVisableImage.fillAmount = 1f;
-
-        CurrencyBarRoot.SetActive(true);
-        MoneyFieldRoot.SetActive(true);
-        MoneyFieldLabel.SetText("250");
-        ScrapFieldRoot.SetActive(scrapUnlocked);
-        ScrapFieldLabel.SetText("30");
-        GooFieldRoot.SetActive(gooUnlocked);
-        GooFieldLabel.SetText("9");
+        EnergyFieldActualImage.fillAmount = energyPerc;
+        EnergyFieldVisableImage.fillAmount = energyPerc;
+    }
+    private void OnDestroy()
+    {
+        WalletData.onWalletUpdated -= OnWalletUpdated;
     }
 
-    public void SetVisibleEnergyOverride(float value)
+    public void SetVisibleEnergyOverride(int change)
     {
-        EnergyFieldVisableImage.fillAmount = value;
+        SaveData saveData = Root_Harness.Instance.SaveData;
+
+        float visibleEnergy = Mathf.Clamp(saveData.Energy + change, 0, saveData.MaxEnergy);
+
+        EnergyFieldVisableImage.fillAmount = visibleEnergy / saveData.MaxEnergy;
     }
     public void ClearVisibleEnergyOverride()
     {
-        EnergyFieldVisableImage.fillAmount = 1f;
+        EnergyFieldVisableImage.fillAmount = EnergyFieldActualImage.fillAmount;
+    }
+
+    private void OnWalletUpdated()
+    {
+        SaveData saveData = Root_Harness.Instance.SaveData;
+
+        CurrencyBarRoot.SetActive(true);
+        MoneyFieldRoot.SetActive(true);
+        MoneyFieldLabel.SetText(saveData.Wallet.GetCurrency(CurrencyType.Money).ToString());
+        ScrapFieldRoot.SetActive(true);
+        ScrapFieldLabel.SetText(saveData.Wallet.GetCurrency(CurrencyType.Scrap).ToString());
+        GooFieldRoot.SetActive(true);
+        GooFieldLabel.SetText(saveData.Wallet.GetCurrency(CurrencyType.Goo).ToString());
     }
 }
