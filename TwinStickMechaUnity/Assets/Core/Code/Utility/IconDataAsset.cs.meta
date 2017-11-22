@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: fb9bc7a02aa894e78b7336607d7b5f8f
+timeCreated: 1511373782
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _moneySprite: {fileID: 21300000, guid: a5ea88d9d21204cd1bbac302aee6f6b7, type: 3}
+  - _scrapSprite: {fileID: 21300000, guid: b9d392ed44a9c42e7a571192a8c8b179, type: 3}
+  - _gooSprite: {fileID: 21300000, guid: b28490345f30a414ba0bdbd9b39b890a, type: 3}
+  - _partSprite: {fileID: 21300000, guid: fc97fc8801d5845a2bc14d433f579286, type: 3}
+  - _mechSprite: {fileID: 21300000, guid: a4c70a25dc3144ee1b1bd029cc5c8b69, type: 3}
+  - _pilotSprite: {fileID: 21300000, guid: 7579ed3937b3e4b34be90a81c510ef16, type: 3}
+  - _energySprite: {fileID: 21300000, guid: 4257bbe279aff48c8b9b51a581df754e, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

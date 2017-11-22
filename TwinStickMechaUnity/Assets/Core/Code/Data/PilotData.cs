@@ -18,4 +18,15 @@ public class PilotData : SavableData
     #endregion
 
     public string Name { get; set; }
+
+    public PilotDataAsset Data { get; private set; }
+
+    public PilotData()
+    {
+        Data = ScriptableObject.CreateInstance<PilotDataAsset>();
+    }
+    public PilotData(PilotDataAsset asset)
+    {
+        Data = asset;
+    }
 }

@@ -31,6 +31,15 @@ public class Root_MainMenu : ContextSceneRoot
         BackButton.onClick.AddListener(Button_BackButton);
         ExitButton.onClick.AddListener(Button_ExitButton);
 
+        if (TrashMan.recycleBinForGameObject(NavButtonPrefab.gameObject) == null)
+        {
+            TrashMan.manageRecycleBin(new TrashManRecycleBin()
+            {
+                prefab = NavButtonPrefab.gameObject
+
+            });
+        }
+
         TriggerRegionEntry();
     }
 

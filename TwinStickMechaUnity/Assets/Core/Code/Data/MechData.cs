@@ -20,4 +20,15 @@ public class MechData : SavableData
     #endregion
 
     public string Name { get; set; }
+
+    public MechDataAsset Data { get; private set; }
+
+    public MechData()
+    {
+        Data = ScriptableObject.CreateInstance<MechDataAsset>();
+    }
+    public MechData(MechDataAsset asset)
+    {
+        Data = asset;
+    }
 }

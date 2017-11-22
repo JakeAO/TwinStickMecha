@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -13,6 +14,8 @@ public class SaveData
     private const string SAVE_KEY = "Save";
     private const uint SAVE_VERSION = 0;
 
+    public static event Action onEnergyUpdated = null;
+
     private WalletData _wallet = null;
     private readonly List<PilotData> _pilots = new List<PilotData>();
     private readonly List<MechData> _mechs = new List<MechData>();
@@ -23,13 +26,28 @@ public class SaveData
     private uint _mechSlots = 2;
 
     public WalletData Wallet { get { return _wallet; } }
-    public IEnumerable<PilotData> Pilots { get { return _pilots; } }
-    public IEnumerable<MechData> Mechs { get { return _mechs; } }
-    public IEnumerable<PartData> Parts { get { return _parts; } }
+    public List<PilotData> Pilots { get { return _pilots; } }
+    public List<MechData> Mechs { get { return _mechs; } }
+    public List<PartData> Parts { get { return _parts; } }
     public uint Energy { get { return _energy; } }
     public uint MaxEnergy { get { return _maxEnergy; } }
     public uint PilotSlots { get { return _pilotSlots; } }
     public uint MechSlots { get { return _mechSlots; } }
+
+    public void IncreaseEnergy(uint amount)
+    {
+        _energy = (uint)Mathf.Min(_energy + amount, _maxEnergy);
+
+        if (onEnergyUpdated != null)
+            onEnergyUpdated();
+    }
+    public void DecreaseEnergy(uint amount)
+    {
+        _energy = (uint)Mathf.Max(_energy - amount, 0);
+
+        if (onEnergyUpdated != null)
+            onEnergyUpdated();
+    }
 
     public void Load()
     {

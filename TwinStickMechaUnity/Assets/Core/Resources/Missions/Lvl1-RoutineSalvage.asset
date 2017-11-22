@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1fa549ebbd6a409d8646d261b2a4058, type: 3}
+  m_Name: Lvl1-RoutineSalvage
+  m_EditorClassIdentifier: 
+  Name: Routine Salvage
+  Desc: Investigate nearby wreckage to salvage usable scrap.
+  Category: 2
+  EnergyFee: 3
+  CurrencyFee: []
+  CurrencyReward:
+  - Desc: Salvage
+    Currency: 1
+    Amount: 30
+  PartReward: []
+  MechReward: []
+  PilotReward: []

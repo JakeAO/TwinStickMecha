@@ -9,40 +9,51 @@ public class MenuHeaderBar : MonoBehaviour
     [Header("Status Bar")]
     public GameObject StatusBarRoot = null;
     public GameObject PilotFieldRoot = null;
+    public Image PilotIconImage = null;
     public TMP_Text PilotFieldLabel = null;
     public GameObject MechaFieldRoot = null;
+    public Image MechaIconImage = null;
     public TMP_Text MechaFieldLabel = null;
     public GameObject EnergyFieldRoot = null;
+    public Image EnergyIconImage = null;
     public Image EnergyFieldActualImage = null;
     public Image EnergyFieldVisableImage = null;
 
     [Header("Currency Bar")]
     public GameObject CurrencyBarRoot = null;
     public GameObject MoneyFieldRoot = null;
+    public Image MoneyIconImage = null;
     public TMP_Text MoneyFieldLabel = null;
     public GameObject ScrapFieldRoot = null;
+    public Image ScrapIconImage = null;
     public TMP_Text ScrapFieldLabel = null;
     public GameObject GooFieldRoot = null;
+    public Image GooIconImage = null;
     public TMP_Text GooFieldLabel = null;
 
     private void Start()
     {
+        SaveData.onEnergyUpdated += OnEnergyUpdated;
         WalletData.onWalletUpdated += OnWalletUpdated;
+
+        PilotIconImage.sprite = IconDataAsset.Instance.PilotSprite;
+        MechaIconImage.sprite = IconDataAsset.Instance.MechSprite;
+        EnergyIconImage.sprite = IconDataAsset.Instance.EnergySprite;
+        MoneyIconImage.sprite = IconDataAsset.Instance.MoneySprite;
+        ScrapIconImage.sprite = IconDataAsset.Instance.ScrapSprite;
+        GooIconImage.sprite = IconDataAsset.Instance.GooSprite;
 
         OnWalletUpdated();
 
         SaveData saveData = Root_Harness.Instance.SaveData;
-
-        float energyPerc = saveData.Energy / (float)saveData.MaxEnergy;
 
         StatusBarRoot.SetActive(true);
         PilotFieldRoot.SetActive(true);
         PilotFieldLabel.SetText(saveData.PilotSlots.ToString());
         MechaFieldRoot.SetActive(true);
         MechaFieldLabel.SetText(saveData.MechSlots.ToString());
-        EnergyFieldRoot.SetActive(true);
-        EnergyFieldActualImage.fillAmount = energyPerc;
-        EnergyFieldVisableImage.fillAmount = energyPerc;
+
+        OnEnergyUpdated();
     }
     private void OnDestroy()
     {
@@ -62,6 +73,16 @@ public class MenuHeaderBar : MonoBehaviour
         EnergyFieldVisableImage.fillAmount = EnergyFieldActualImage.fillAmount;
     }
 
+    private void OnEnergyUpdated()
+    {
+        SaveData saveData = Root_Harness.Instance.SaveData;
+
+        float energyPerc = saveData.Energy / (float)saveData.MaxEnergy;
+
+        EnergyFieldRoot.SetActive(true);
+        EnergyFieldActualImage.fillAmount = energyPerc;
+        EnergyFieldVisableImage.fillAmount = energyPerc;
+    }
     private void OnWalletUpdated()
     {
         SaveData saveData = Root_Harness.Instance.SaveData;

@@ -16,4 +16,17 @@ public class PartData : SavableData
         return string.Empty;
     }
     #endregion
+
+    public string Name { get; set; }
+
+    public PartDataAsset Data { get; private set; }
+
+    public PartData()
+    {
+        Data = ScriptableObject.CreateInstance<PartDataAsset>();
+    }
+    public PartData(PartDataAsset asset)
+    {
+        Data = asset;
+    }
 }

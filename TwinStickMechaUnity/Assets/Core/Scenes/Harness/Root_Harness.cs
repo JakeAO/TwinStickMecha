@@ -13,6 +13,9 @@ public class Root_Harness : MonoBehaviour
     public readonly SaveData SaveData = new SaveData();
 
     private bool _showGUI = false;
+    private List<KeyCode> _currentKey = new List<KeyCode>();
+
+    private List<KeyCode> _allKeyCodes = new List<KeyCode>();
 
     private void Awake()
     {
@@ -20,11 +23,16 @@ public class Root_Harness : MonoBehaviour
 
         Instance = this;
         SaveData.Load();
+
+        _allKeyCodes.AddRange((IEnumerable<KeyCode>)System.Enum.GetValues(typeof(KeyCode)));
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        _currentKey.Clear();
+        _allKeyCodes.ForEach(x => { if (Input.GetKey(x)) _currentKey.Add(x); });
+
+        if (Input.GetKeyDown(KeyCode.BackQuote))
             _showGUI = !_showGUI;
     }
     private void OnGUI()
@@ -41,7 +49,35 @@ public class Root_Harness : MonoBehaviour
                     SaveData.Save();
                 if (GUILayout.Button("Load Game", GUILayout.Width(100)))
                     SaveData.Load();
-                GUILayout.Space(5);
+                GUILayout.Space(5f);
+
+                // KEYS
+                GUILayout.BeginHorizontal();
+                GUILayout.Label("Keys Down: ", new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Italic }, GUILayout.ExpandWidth((false)));
+                GUILayout.Label(string.Join(", ", _currentKey.ConvertAll(x => x.ToString()).ToArray()));
+                GUILayout.EndHorizontal();
+                GUILayout.Space(5f);
+
+                // ENERGY
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label("Energy: ", new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Italic }, GUILayout.ExpandWidth(false));
+                    if (SaveData.Energy == 0)
+                    {
+                        GUILayout.Box("<", GUILayout.ExpandWidth(false));
+                    }
+                    else if (GUILayout.RepeatButton("<", GUILayout.ExpandWidth(false)))
+                    {
+                        SaveData.DecreaseEnergy(1);
+                    }
+                    GUILayout.Label(SaveData.Energy + "/" + SaveData.MaxEnergy);
+                    if (GUILayout.RepeatButton(">", GUILayout.ExpandWidth(false)))
+                    {
+                        SaveData.IncreaseEnergy(1);
+                    }
+                }
+                GUILayout.EndHorizontal();
+                GUILayout.Space(5f);
 
                 // WALLET
                 GUILayout.Label("Wallet", new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold });
@@ -52,7 +88,7 @@ public class Root_Harness : MonoBehaviour
                     {
                         uint amount = SaveData.Wallet.GetCurrency(currencyEnum);
                         GUILayout.Label(currencyEnum.ToString() + ": ", new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Italic }, GUILayout.ExpandWidth(false));
-                        if (amount > 0)
+                        if (amount == 0)
                         {
                             GUILayout.Box("<", GUILayout.ExpandWidth(false));
                         }
@@ -60,7 +96,7 @@ public class Root_Harness : MonoBehaviour
                         {
                             SaveData.Wallet.RemoveCurrency(currencyEnum, 1);
                         }
-                        GUILayout.Label(SaveData.Wallet.GetCurrency(currencyEnum).ToString(), GUILayout.ExpandWidth(false));
+                        GUILayout.Label(SaveData.Wallet.GetCurrency(currencyEnum).ToString());
                         if (GUILayout.RepeatButton(">", GUILayout.ExpandWidth(false)))
                         {
                             SaveData.Wallet.AddCurrency(currencyEnum, 1);
@@ -70,14 +106,19 @@ public class Root_Harness : MonoBehaviour
                 }
 
                 // GARAGE
+                GUILayout.Space(5f);
 
                 // BARRACKS
+                GUILayout.Space(5f);
 
                 // SHOP
+                GUILayout.Space(5f);
 
                 // JUNKYARD
+                GUILayout.Space(5f);
 
                 // MISSIONS
+                GUILayout.Space(5f);
 
             }
             GUILayout.EndArea();

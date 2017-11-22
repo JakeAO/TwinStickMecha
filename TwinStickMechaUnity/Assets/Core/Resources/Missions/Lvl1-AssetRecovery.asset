@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1fa549ebbd6a409d8646d261b2a4058, type: 3}
+  m_Name: Lvl1-AssetRecovery
+  m_EditorClassIdentifier: 
+  Name: Asset Recovery
+  Desc: Make your way through the wreckage of a carrier ship and recover the employer's
+    asset before it is destroyed.
+  Category: 3
+  EnergyFee: 2
+  CurrencyFee: []
+  CurrencyReward:
+  - Desc: Payment
+    Currency: 0
+    Amount: 100
+  - Desc: Salvage
+    Currency: 1
+    Amount: 10
+  PartReward: []
+  MechReward: []
+  PilotReward: []

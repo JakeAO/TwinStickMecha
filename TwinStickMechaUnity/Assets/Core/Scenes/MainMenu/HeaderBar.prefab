@@ -208,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1474812056606484
 GameObject:
   m_ObjectHideFlags: 1
@@ -310,7 +310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1680924149040848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,18 +1338,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StatusBarRoot: {fileID: 1542070403419264}
   PilotFieldRoot: {fileID: 1269618211754154}
+  PilotIconImage: {fileID: 114117388394590578}
   PilotFieldLabel: {fileID: 114633711948461932}
   MechaFieldRoot: {fileID: 1129589185994906}
+  MechaIconImage: {fileID: 114259279370651958}
   MechaFieldLabel: {fileID: 114836109970426396}
   EnergyFieldRoot: {fileID: 1422238098976940}
+  EnergyIconImage: {fileID: 114813788497056088}
   EnergyFieldActualImage: {fileID: 114116436114776056}
   EnergyFieldVisableImage: {fileID: 114629047286849032}
   CurrencyBarRoot: {fileID: 1394946964501552}
   MoneyFieldRoot: {fileID: 1829574836170888}
+  MoneyIconImage: {fileID: 114200331703162824}
   MoneyFieldLabel: {fileID: 114100793893537348}
   ScrapFieldRoot: {fileID: 1655072872056618}
+  ScrapIconImage: {fileID: 114414090818240430}
   ScrapFieldLabel: {fileID: 114182681675733196}
   GooFieldRoot: {fileID: 1424225294676654}
+  GooIconImage: {fileID: 114106629611462170}
   GooFieldLabel: {fileID: 114559205925998870}
 --- !u!222 &222044164107579744
 CanvasRenderer:

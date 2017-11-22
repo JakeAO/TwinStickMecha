@@ -3,6 +3,13 @@ namespace k
 {
 	public static class Resources
 	{
+		public const string ICON_DATA_ASSET = "IconDataAsset";
+		public const string NEW_MECH_DATA_ASSET = "Mechs/New MechDataAsset";
+		public const string LVL1_ASSET_RECOVERY = "Missions/Lvl1-AssetRecovery";
+		public const string LVL1_GUARD_DUTY = "Missions/Lvl1-GuardDuty";
+		public const string LVL1_ROUTINE_SALVAGE = "Missions/Lvl1-RoutineSalvage";
+		public const string NEW_PART_DATA_ASSET = "Parts/New PartDataAsset";
+		public const string NEW_PILOT_DATA_ASSET = "Pilots/New PilotDataAsset";
 		public const string COPYING = "Bluenoise64/COPYING";
 		public const string LDR_LLL1_0 = "Bluenoise64/LDR_LLL1_0";
 		public const string LDR_LLL1_1 = "Bluenoise64/LDR_LLL1_1";
