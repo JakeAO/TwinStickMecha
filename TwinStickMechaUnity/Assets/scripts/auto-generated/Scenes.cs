@@ -15,16 +15,15 @@ namespace k
 		public const string SCENE_IN_GAME = "Scene_InGame";
 		public const string SCENE_POST_GAME = "Scene_PostGame";
 
-		public const int SCENE_SPLASH_IDX = 0;
-		public const int SCENE_HARNESS_IDX = 1;
-		public const int SCENE_MAIN_MENU_IDX = 2;
-		public const int SCENE_MISSION_BOARD_IDX = 3;
-		public const int SCENE_GARAGE_IDX = 4;
-		public const int SCENE_BARRACKS_IDX = 5;
-		public const int SCENE_SHOP_IDX = 6;
-		public const int SCENE_JUNKYARD_IDX = 7;
-		public const int SCENE_PRE_GAME_IDX = 8;
-		public const int SCENE_IN_GAME_IDX = 9;
-		public const int SCENE_POST_GAME_IDX = 10;
+		public const int TOTAL_SCENES = 11;
+
+
+		public static int nextSceneIndex()
+		{
+			var currentSceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+			if( currentSceneIndex + 1 == TOTAL_SCENES )
+				return 0;
+			return currentSceneIndex + 1;
+		}
 	}
 }

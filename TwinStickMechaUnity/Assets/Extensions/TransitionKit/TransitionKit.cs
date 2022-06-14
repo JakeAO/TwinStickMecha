@@ -29,7 +29,7 @@ namespace Prime31.TransitionKit
 		/// </summary>
 		private const int _transitionKitLayer = 31;
 
-		private ITransitionKitDelegate _transitionKitDelegate;
+		private TransitionKitDelegate _transitionKitDelegate;
 
 		/// <summary>
 		/// provides easy access to the camera used to obscure the screen. Handy when you want to change the clear flags for example.
@@ -219,7 +219,7 @@ namespace Prime31.TransitionKit
 		/// starts up a transition with the given delegate
 		/// </summary>
 		/// <param name="transitionKitDelegate">Transition kit delegate.</param>
-		public void transitionWithDelegate( ITransitionKitDelegate transitionKitDelegate )
+		public void transitionWithDelegate( TransitionKitDelegate transitionKitDelegate )
 		{
 			gameObject.SetActive( true );
 			_transitionKitDelegate = transitionKitDelegate;
@@ -246,75 +246,12 @@ namespace Prime31.TransitionKit
 		/// </summary>
 		/// <returns>The for level to load.</returns>
 		/// <param name="level">Level.</param>
-		public IEnumerator waitForLevelToLoad( int level )
+		public IEnumerator waitForLevelToLoad( string level )
 		{
-            Scene scene = SceneManager.GetSceneByBuildIndex(level);
-            while (!scene.isLoaded)
-                yield return null;
+			while( SceneManager.GetActiveScene().name != level )
+				yield return null;
 		}
 
-        /// <summary>
-        /// helper for delegates that returns control back when the given level has unloaded. Very handy when using async loading.
-        /// </summary>
-        /// <returns>The for level to load.</returns>
-        /// <param name="level">Level.</param>
-        public IEnumerator waitForLevelToUnload(int level)
-        {
-            Scene scene = SceneManager.GetSceneByBuildIndex(level);
-            while (scene.isLoaded)
-                yield return null;
-        }
-
-        public IEnumerator performLoadUnloadOperation(SceneLoadData loadData)
-        {
-            if (loadData != null)
-            {
-                switch (loadData.LoadOrder)
-                {
-                    case SceneLoadData.Order.LoadFirst:
-                        if (loadData.LoadIndex >= 0)
-                        {
-                            SceneManager.LoadSceneAsync(loadData.LoadIndex, loadData.LoadMode);
-                            yield return StartCoroutine(waitForLevelToLoad(loadData.LoadIndex));
-                            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(loadData.LoadIndex));
-                        }
-                        if (loadData.UnloadIndex >= 0)
-                        {
-                            SceneManager.UnloadSceneAsync(loadData.UnloadIndex);
-                            yield return StartCoroutine(waitForLevelToUnload(loadData.UnloadIndex));
-                        }
-                        break;
-                    case SceneLoadData.Order.UnloadFirst:
-                        if (loadData.UnloadIndex >= 0)
-                        {
-                            SceneManager.UnloadSceneAsync(loadData.UnloadIndex);
-                            yield return StartCoroutine(waitForLevelToUnload(loadData.UnloadIndex));
-                        }
-                        if (loadData.LoadIndex >= 0)
-                        {
-                            SceneManager.LoadSceneAsync(loadData.LoadIndex, loadData.LoadMode);
-                            yield return StartCoroutine(waitForLevelToLoad(loadData.LoadIndex));
-                            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(loadData.LoadIndex));
-                        }
-                        break;
-                    case SceneLoadData.Order.Concurrent:
-                        if (loadData.LoadIndex >= 0)
-                            SceneManager.LoadSceneAsync(loadData.LoadIndex, loadData.LoadMode);
-                        if (loadData.UnloadIndex >= 0)
-                            SceneManager.UnloadSceneAsync(loadData.UnloadIndex);
-                        if (loadData.LoadIndex >= 0)
-                        {
-                            yield return StartCoroutine(waitForLevelToLoad(loadData.LoadIndex));
-                            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(loadData.LoadIndex));
-                        }
-                        if (loadData.UnloadIndex >= 0)
-                            yield return StartCoroutine(waitForLevelToUnload(loadData.UnloadIndex));
-                        break;
-                }
-            }
-
-            yield return null;
-        }
 
 		/// <summary>
 		/// the most common type of transition seems to be one that ticks progress from 0 - 1. This method takes care of that for you

@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Prime31.ZestKit;
 using UnityEngine;
 
 public abstract class ContextSceneRoot : MonoBehaviour
@@ -37,7 +37,7 @@ public abstract class ContextSceneRoot : MonoBehaviour
         OnRegionEnter();
         foreach (var regionData in Regions)
         {
-            regionData.Root.anchoredPositionTo(REGION_TWEEN_DURATION, regionData.TargetPosition);
+            regionData.Root.ZKanchoredPosition3DTo(regionData.TargetPosition, REGION_TWEEN_DURATION);
         }
         yield return new WaitForSeconds(REGION_TWEEN_DURATION);
     }
@@ -54,7 +54,7 @@ public abstract class ContextSceneRoot : MonoBehaviour
         }
         foreach (var regionData in Regions)
         {
-            regionData.Root.anchoredPositionTo(REGION_TWEEN_DURATION, regionData.HiddenPosition);
+            regionData.Root.ZKanchoredPosition3DTo(regionData.HiddenPosition, REGION_TWEEN_DURATION);
         }
         yield return new WaitForSeconds(REGION_TWEEN_DURATION);
 

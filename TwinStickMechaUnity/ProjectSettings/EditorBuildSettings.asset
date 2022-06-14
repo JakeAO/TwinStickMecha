@@ -38,3 +38,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Core/Scenes/PostGame/Scene_PostGame.unity
     guid: 86e9f85259bb24892ad5f41d6e6c3104
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: e712b364a1ee4b249a194a9a8f83f716,
+      type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 66835da85ecd29841a3f7b37813b28ee,
+      type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 30d29e40eaffdf94398246ad6a821937,
+      type: 2}

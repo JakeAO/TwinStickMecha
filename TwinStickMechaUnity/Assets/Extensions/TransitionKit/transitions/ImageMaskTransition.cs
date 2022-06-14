@@ -12,50 +12,61 @@ using UnityEngine.SceneManagement;
 
 namespace Prime31.TransitionKit
 {
-    public class ImageMaskTransition : TransitionBase, ITransitionKitDelegate
-    {
-        public Texture2D maskTexture;
-        public Color backgroundColor = Color.black;
-        public float duration = 0.9f;
-
-        #region TransitionKitDelegate
-
-        public Shader shaderForTransition()
-        {
-            return Shader.Find("prime[31]/Transitions/Mask");
-        }
+	public class ImageMaskTransition : TransitionKitDelegate
+	{
+		public Texture2D maskTexture;
+		public Color backgroundColor = Color.black;
+		public float duration = 0.9f;
+		public string nextScene = null;
 
 
-        public Mesh meshForDisplay()
-        {
-            return null;
-        }
+		#region TransitionKitDelegate
+
+		public Shader shaderForTransition()
+		{
+			return Shader.Find( "prime[31]/Transitions/Mask" );
+		}
 
 
-        public Texture2D textureForDisplay()
-        {
-            return null;
-        }
+		public Mesh meshForDisplay()
+		{
+			return null;
+		}
 
 
-        public IEnumerator onScreenObscured(TransitionKit transitionKit)
-        {
-            transitionKit.transitionKitCamera.clearFlags = CameraClearFlags.Nothing;
-            transitionKit.material.color = backgroundColor;
-            transitionKit.material.SetTexture("_MaskTex", maskTexture);
+		public Texture2D textureForDisplay()
+		{
+			return null;
+		}
 
-            yield return transitionKit.StartCoroutine(transitionKit.performLoadUnloadOperation(sceneLoadData));
 
-            // this does the zoom/rotation
-            yield return transitionKit.StartCoroutine(transitionKit.tickProgressPropertyInMaterial(duration));
+		public IEnumerator onScreenObscured( TransitionKit transitionKit )
+		{
+			transitionKit.transitionKitCamera.clearFlags = CameraClearFlags.Nothing;
+			transitionKit.material.color = backgroundColor;
+			transitionKit.material.SetTexture( "_MaskTex", maskTexture );
 
-            // now that the new scene is loaded we zoom the mask back out
-            transitionKit.makeTextureTransparent();
+			if (!string.IsNullOrWhiteSpace(nextScene))
+			{
+				SceneManager.LoadSceneAsync(nextScene);
+			}
 
-            yield return transitionKit.StartCoroutine(transitionKit.tickProgressPropertyInMaterial(duration, true));
-        }
+			// this does the zoom/rotation
+			yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration ) );
 
-        #endregion
+			if (!string.IsNullOrWhiteSpace(nextScene))
+			{
+				// we dont transition back to the new scene unless it is loaded
+				yield return transitionKit.StartCoroutine(transitionKit.waitForLevelToLoad(nextScene));
+			}
 
-    }
+			// now that the new scene is loaded we zoom the mask back out
+			transitionKit.makeTextureTransparent();
+
+			yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration, true ) );
+		}
+
+		#endregion
+
+	}
 }

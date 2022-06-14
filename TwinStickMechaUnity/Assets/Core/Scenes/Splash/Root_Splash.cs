@@ -1,31 +1,33 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using Prime31.TransitionKit;
+using Prime31.ZestKit;
+using Unity.Services.Core;
 using UnityEngine.SceneManagement;
 
 public class Root_Splash : MonoBehaviour
 {
-    public TMP_Text DeveloperLabel = null;
-    public TMP_Text PresentsLabel = null;
-    public TMP_Text TitleLabel = null;
+    [SerializeField] private TMP_Text _developerLabel = null;
+    [SerializeField] private TMP_Text _presentsLabel = null;
+    [SerializeField] private TMP_Text _titleLabel = null;
 
     private IEnumerator Start()
     {
-        DeveloperLabel.alpha = 0f;
-        PresentsLabel.alpha = 0f;
-        TitleLabel.alpha = 0f;
+        UnityServices.InitializeAsync();
+        
+        _developerLabel.alpha = 0f;
+        _presentsLabel.alpha = 0f;
+        _titleLabel.alpha = 0f;
 
         SceneManager.LoadScene(k.Scenes.SCENE_HARNESS, LoadSceneMode.Additive);
-        Go.to(DeveloperLabel, 0.5f, new GoTweenConfig().floatProp("alpha", 1f)).play();
+        _developerLabel.ZKalphaTo(1f, 1f).start();
 
         yield return new WaitForSeconds(1f);
-        Go.to(PresentsLabel, 0.25f, new GoTweenConfig().floatProp("alpha", 1f)).play();
+        _presentsLabel.ZKalphaTo(1f, 1f).start();
 
         yield return new WaitForSeconds(0.5f);
-        Go.to(TitleLabel, 0.5f, new GoTweenConfig().floatProp("alpha", 1f)).play();
+        _titleLabel.ZKalphaTo(1f, 1f).start();
 
         yield return new WaitForSeconds(2f);
 
@@ -38,13 +40,7 @@ public class Root_Splash : MonoBehaviour
         {
             duration = 2f,
             divisions = 7,
-            sceneLoadData = new SceneLoadData()
-            {
-                LoadIndex = k.Scenes.SCENE_MAIN_MENU_IDX,
-                UnloadIndex = k.Scenes.SCENE_SPLASH_IDX,
-                LoadMode = LoadSceneMode.Additive,
-                LoadOrder = SceneLoadData.Order.UnloadFirst
-            }
+            nextScene = k.Scenes.SCENE_MAIN_MENU,
         });
     }
 }
